@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block head %}
-  {{ super() }}
-  {% if article.description %}
-    <meta name="description" content="{{ article.description }}" />
-  {% endif %}
+{{ super() }}
+{% if article.description %}
+<meta name="description" content="{{ article.description }}" />
+{% endif %}
 
-  {% for tag in article.tags %}
-    <meta name="tags" content="{{tag}}" />
-  {% endfor %}
+{% for tag in article.tags %}
+<meta name="tags" content="{{tag}}" />
+{% endfor %}
 
 {% endblock %}
 {% block twittercard %}
@@ -28,7 +28,7 @@
 {% endblock twittercard %}
 <!-- OG Tags -->
 {% block ogtags %}
-<meta property="og:url" content="{{ SITEURL }}/{{ article.url }}"/>
+<meta property="og:url" content="{{ SITEURL }}/{{ article.url }}" />
 <meta property="og:title" content="{{ SITENAME }} | {{ article.title }}" />
 <meta property="og:description" content="{{ article.description }}" />
 {% if article.cover_image %}
@@ -37,50 +37,51 @@
 {% endblock ogtags %}
 
 {% block content %}
-  <div class="article" role="article">
-    <article>
-      {% if article.date %}
-        <footer>
-            <a name="top"></a>
-            <p>
-              <time datetime=" {{ article.date }}">
-                <script>document.write(moment('{{ article.date }}').format('LL'));</script>
-              </time>
-            </p>
-        </footer>
-      {% endif %}
-        <header>
-          <h2>
-            {{ article.title }}
-          </h2>
-        </header>
-      <div class="content">
-         {{ article.content|safe }}
-      </div>
-      <div class="back-to-top">
-          <a href="#top">back to top</a>
-      </div>
-      {% if DISQUS_SITENAME %}
-      <div id="disqus_thread"></div>
-        {% if SITEURL %}
-        <script>
-          var disqus_config = function () {
-          this.page.url = "{{ SITEURL }}/{{ article.url }}";  // Replace PAGE_URL with your page's canonical URL variable
-          this.page.identifier = "{{ article.slug }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-          };
-        </script>
-        {% endif %}
-        <script>
-        (function() {
-              var d = document, s = d.createElement('script');
-              s.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
-              s.setAttribute('data-timestamp', +new Date());
-              (d.head || d.body).appendChild(s);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      {% endif %}
-    </article>
-  </div>
+<div class="article" role="article">
+  <article>
+    {% if article.date %}
+    <footer>
+      <a name="top"></a>
+      <p>
+        <time datetime=" {{ article.date }}">
+          <script>document.write(moment('{{ article.date }}').format('LL'));</script>
+        </time>
+      </p>
+    </footer>
+    {% endif %}
+    <header>
+      <h2>
+        {{ article.title }}
+      </h2>
+    </header>
+    <div class="content">
+      {{ article.content|safe }}
+    </div>
+    <div class="back-to-top">
+      <a href="#top">back to top</a>
+    </div>
+    {% if DISQUS_SITENAME %}
+    <div id="disqus_thread"></div>
+    {% if SITEURL %}
+    <script>
+      var disqus_config = function () {
+        this.page.url = "{{ SITEURL }}/{{ article.url }}";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "{{ article.slug }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+    </script>
+    {% endif %}
+    <script>
+      (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
+    {% endif %}
+  </article>
+</div>
 <!-- end article -->
 {% endblock content %}
